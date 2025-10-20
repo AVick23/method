@@ -1,0 +1,395 @@
+/* ========== Apple Glassmorphism Design System ========== */
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-glow: rgba(10, 132, 255, 0.2);
+    --glass-highlight: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --text-tertiary: rgba(255, 255, 255, 0.6);
+    --accent: #007AFF;
+    --accent-hover: #409CFF;
+    --shadow: rgba(0, 0, 0, 0.25);
+    --background-gradient: linear-gradient(135deg, #0F0B1F 0%, #1D1A35 50%, #0F0B1F 100%);
+    --background-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--background-gradient), var(--background-noise);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+    overflow-x: hidden;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+/* ========== Typography (Apple Style) ========== */
+h1, h2, h3, h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin: 3rem 0 1rem;
+    background: linear-gradient(135deg, #ffffff 0%, #B8B8FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 4px 20px rgba(184, 184, 255, 0.3);
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-tertiary);
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    font-size: 1.25rem;
+    padding: 0 2rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ========== Enhanced Glass Cards ========== */
+.glass-card {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0;
+    margin-bottom: 1.75rem;
+    box-shadow: 
+        0 8px 32px var(--shadow),
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 var(--glass-highlight),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+    position: relative;
+}
+
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--glass-highlight) 50%, 
+        transparent 100%);
+}
+
+.glass-card:hover {
+    transform: translateY(-4px) scale(1.002);
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.35),
+        0 4px 16px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 var(--glass-highlight),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ========== Apple-style Accordion ========== */
+.accordion-header {
+    padding: 1.75rem 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    user-select: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.accordion-header:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.accordion-item.active .accordion-header {
+    color: var(--accent);
+}
+
+.accordion-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.accordion-icon::after {
+    content: "›";
+    font-size: 1.5rem;
+    color: var(--text-tertiary);
+    font-weight: 300;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(90deg);
+}
+
+.accordion-item.active .accordion-icon::after {
+    color: var(--accent);
+}
+
+/* ========== Smooth Accordion Content ========== */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.accordion-content-inner {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: 
+        opacity 0.5s ease 0.15s,
+        transform 0.5s ease 0.15s;
+    padding: 0 2rem 2rem;
+    color: var(--text-secondary);
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 5000px;
+}
+
+.accordion-item.active .accordion-content-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========== Enhanced Typography ========== */
+.accordion-content p {
+    margin-bottom: 1.25rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+}
+
+.accordion-content strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.accordion-content h3 {
+    color: var(--text-primary);
+    margin: 2rem 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.accordion-content h3:first-child {
+    margin-top: 0.5rem;
+}
+
+.accordion-content ul,
+.accordion-content ol {
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+}
+
+.accordion-content li {
+    margin-bottom: 0.875rem;
+    line-height: 1.6;
+    position: relative;
+}
+
+.accordion-content li::marker {
+    color: var(--accent);
+}
+
+/* ========== Apple-style Table ========== */
+.accordion-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.accordion-content th,
+.accordion-content td {
+    text-align: left;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+}
+
+.accordion-content th {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.accordion-content tr:last-child td {
+    border-bottom: none;
+}
+
+.accordion-content tr:hover td {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* ========== Footer ========== */
+footer {
+    text-align: center;
+    padding: 3rem 2rem 0;
+    color: var(--text-tertiary);
+    font-size: 0.9375rem;
+    max-width: 700px;
+    margin: 4rem auto 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 3rem;
+}
+
+footer h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+footer p {
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+/* ========== Enhanced Scrollbar ========== */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track { 
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+/* ========== Mobile Responsive ========== */
+@media (max-width: 768px) {
+    h1 { 
+        font-size: 2.25rem;
+        margin: 2rem 0 1rem;
+    }
+    
+    .subtitle { 
+        font-size: 1.125rem;
+        margin-bottom: 3rem;
+        padding: 0 1.5rem;
+    }
+    
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .accordion-header { 
+        font-size: 1.25rem; 
+        padding: 1.5rem;
+    }
+    
+    .accordion-content-inner { 
+        padding: 0 1.5rem 1.5rem; 
+    }
+    
+    .accordion-content th,
+    .accordion-content td {
+        padding: 1rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { 
+        font-size: 2rem;
+    }
+    
+    .subtitle { 
+        font-size: 1rem;
+    }
+    
+    .accordion-header { 
+        font-size: 1.125rem; 
+        padding: 1.25rem;
+    }
+    
+    .accordion-content-inner { 
+        padding: 0 1.25rem 1.25rem; 
+    }
+    
+    .accordion-content ul,
+    .accordion-content ol {
+        padding-left: 1.5rem;
+    }
+}
+
+/* ========== Focus States (Accessibility) ========== */
+.accordion-header:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ========== Loading Animation ========== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.glass-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.glass-card:nth-child(2) { animation-delay: 0.1s; }
+.glass-card:nth-child(3) { animation-delay: 0.2s; }
+.glass-card:nth-child(4) { animation-delay: 0.3s; }
+.glass-card:nth-child(5) { animation-delay: 0.4s; }
+.glass-card:nth-child(6) { animation-delay: 0.5s; }
